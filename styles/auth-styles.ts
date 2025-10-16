@@ -1,10 +1,9 @@
 import { StyleSheet } from "react-native";
-import { AppColors, Layout } from "@/constants/theme";
+import { Layout } from "@/constants/theme";
 
 export const authCommonStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: AppColors.background,
   },
   maxWidthContainer: {
     flex: 1,
@@ -14,7 +13,7 @@ export const authCommonStyles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingHorizontal: Layout.padding.horizontal,
+    paddingHorizontal: Layout.padding.screen,
   },
   separatorContainer: {
     width: "100%",
@@ -23,7 +22,6 @@ export const authCommonStyles = StyleSheet.create({
   },
   separator: {
     height: 1,
-    backgroundColor: AppColors.ui.separator,
     width: "100%",
   },
   socialLoginContainer: {

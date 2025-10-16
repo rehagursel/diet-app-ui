@@ -10,10 +10,13 @@ import {
   AuthLayout 
 } from "@/components";
 import { authCommonStyles } from "@/styles/auth-styles";
-import { AppColors, FontSizes, FontWeights, Layout } from "@/constants/theme";
+import { FontSizes, FontWeights, Layout } from "@/constants/theme";
 import { authService, ApiException, getErrorMessage } from "@/api";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "@/store/features/authSlice";
 
 const LoginScreen = () => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -36,21 +39,8 @@ const LoginScreen = () => {
         password,
       });
 
-      // Success - navigate to main app
-      Alert.alert(
-        "Welcome!",
-        `Hello ${result.user.name}! You have successfully logged in.`,
-        [
-          {
-            text: "OK",
-            onPress: () => {
-              // TODO: Navigate to main app
-              // router.replace("/(tabs)");
-              console.log("Login successful:", result.user);
-            },
-          },
-        ]
-      );
+      dispatch(loginSuccess({ user: result.user, token: result.token }));
+      router.replace("/(tabs)");
     } catch (error) {
       if (error instanceof ApiException) {
         Alert.alert("Login Failed", getErrorMessage(error));
@@ -74,15 +64,14 @@ const LoginScreen = () => {
         </View>
 
         <View style={styles.titleContainer}>
-          <Text type="title" style={styles.title}>Welcome</Text>
-          <Text type="subtitle" style={styles.subtitle}>Sign in to your account</Text>
+          <Text type="title">Welcome</Text>
+          <Text type="subtitle">Sign in to your account</Text>
         </View>
 
         <View style={styles.form}>
           <TextInput
             style={authCommonStyles.input}
             placeholder="Email"
-            placeholderTextColor={AppColors.text.placeholder}
             keyboardType="email-address"
             autoCapitalize="none"
             autoComplete="email"
@@ -93,7 +82,6 @@ const LoginScreen = () => {
           <TextInput
             style={authCommonStyles.input}
             placeholder="Password"
-            placeholderTextColor={AppColors.text.placeholder}
             secureTextEntry
             autoComplete="password"
             value={password}
@@ -157,12 +145,6 @@ const styles = StyleSheet.create({
     marginBottom: Layout.spacing.lg,
     textAlign: "left",
   },
-  title: {
-    color: AppColors.text.primary,
-  },
-  subtitle: {
-    color: AppColors.text.subtitle,
-  },
   form: {
     width: "100%",
     marginBottom: Layout.spacing.xl,
@@ -176,15 +158,12 @@ const styles = StyleSheet.create({
   },
   registerLink: {
     fontSize: FontSizes.base,
-    color: AppColors.text.secondary,
     fontWeight: FontWeights.extrabold,
   },
   linkSeparator: {
-    color: AppColors.text.separator,
     fontSize: FontSizes.base,
   },
   forgotLink: {
-    color: AppColors.text.tertiary,
     fontSize: FontSizes.base,
   },
 });

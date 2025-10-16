@@ -101,3 +101,7 @@ export const clearStorage = async (): Promise<void> => {
   }
 };
 
+export const getAuthToken = tokenStorage.getToken;
+export const setAuthToken = tokenStorage.setToken;
+export const removeAuthToken = clearStorage;
+

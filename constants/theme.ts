@@ -5,25 +5,44 @@
 
 import { Dimensions } from "react-native";
 
-const tintColorLight = "#0a7ea4";
-const tintColorDark = '#fff';
+const primary = "#14AE5C";
 
 export const Colors = {
   light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
+    text: "#11181C",
+    textSecondary: "#565656",
+    textTertiary: "#999999",
+    textSubtitle: "#666666",
+    background: "#fcfcfc",
+    tint: primary,
+    icon: "#687076",
+    tabIconDefault: "#687076",
+    tabIconSelected: primary,
+    placeholder: "rgba(33,33,33,0.62)",
+    separator: "rgba(82,82,82,0.09)",
+    inputBackground: "rgba(82,82,82,0.09)",
+    border: "#DADCE0",
+    profileBg: "#eeeeee",
+    primary: primary,
+    cardBackground: "#fcfcfc",
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+    text: "#ECEDEE",
+    textSecondary: "#B0B0B0",
+    textTertiary: "#808080",
+    textSubtitle: "#A0A0A0",
+    background: "#1a1a1a",
+    tint: primary,
+    icon: "#9BA1A6",
+    tabIconDefault: "#9BA1A6",
+    tabIconSelected: primary,
+    placeholder: "rgba(255,255,255,0.5)",
+    separator: "rgba(255,255,255,0.1)",
+    inputBackground: "rgba(255,255,255,0.05)",
+    border: "rgba(255,255,255,0.2)",
+    profileBg: "#2a2a2a",
+    primary: primary,
+    cardBackground: "#1a1a1a",
   },
 };
 
@@ -39,30 +58,8 @@ export const FontFamilies = {
 
 const { width, height } = Dimensions.get("window");
 
-// App-specific colors
 export const AppColors = {
   primary: "#14AE5C" as const,
-  background: "#fcfcfc" as const,
-  
-  // Text colors
-  text: {
-    primary: "#212121",
-    secondary: "#565656",
-    tertiary: "#999999",
-    placeholder: "#212121",
-    subtitle: "#666666",
-    separator: "#CCCCCC",
-  } as const,
-  
-  // UI colors
-  ui: {
-    separator: "rgba(82,82,82,0.09)",
-    inputBackground: "rgba(82,82,82,0.09)",
-    border: "#444444",
-    profileBg: "#eeeeee",
-  } as const,
-  
-  // Social colors
   social: {
     facebook: "#1877F2",
     google: "#DB4437",
@@ -75,7 +72,7 @@ export const AppColors = {
 export const Layout = {
   maxWidth: 480,
   padding: {
-    screen: 20,
+    screen: 16,
     horizontal: 20,
     vertical: 20,
   } as const,

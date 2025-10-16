@@ -1,6 +1,7 @@
-import { TextInput as DefaultTextInput, TextInputProps, TextStyle, StyleSheet } from "react-native";
+import { TextInput as DefaultTextInput, TextInputProps, TextStyle } from "react-native";
 import { useMemo } from "react";
 import { FontFamilies } from "@/constants/theme";
+import { useThemeColor } from "@/hooks/use-theme-color";
 
 const getFontFamily = (weight?: TextStyle["fontWeight"]): string => {
   switch (weight) {
@@ -26,7 +27,11 @@ const getFontFamily = (weight?: TextStyle["fontWeight"]): string => {
 };
 
 export function TextInput(props: TextInputProps) {
-  const { style, ...otherProps } = props;
+  const { style, placeholderTextColor, ...otherProps } = props;
+  
+  const backgroundColor = useThemeColor({}, 'inputBackground');
+  const textColor = useThemeColor({}, 'text');
+  const placeholder = useThemeColor({}, 'placeholder');
   
   const finalFontFamily = useMemo(() => {
     const styleArray = Array.isArray(style) ? style : [style];
@@ -51,23 +56,20 @@ export function TextInput(props: TextInputProps) {
   return (
     <DefaultTextInput 
       style={[
-        styles.defaultInput,
-        { fontFamily: finalFontFamily },
+        {
+          backgroundColor,
+          color: textColor,
+          borderRadius: 22,
+          paddingHorizontal: 16,
+          paddingVertical: 14,
+          fontSize: 17,
+          flex: 1,
+          fontFamily: finalFontFamily,
+        },
         style,
       ]} 
+      placeholderTextColor={placeholderTextColor || placeholder}
       {...otherProps} 
     />
   );
 }
-
-const styles = StyleSheet.create({
-  defaultInput: {
-    backgroundColor: "rgba(82,82,82,0.09)",
-    borderRadius: 22,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    fontSize: 17,
-    color: "#222222",
-    flex: 1,
-  },
-});

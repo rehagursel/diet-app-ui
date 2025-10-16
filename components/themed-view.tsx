@@ -1,14 +1,31 @@
 import { View, type ViewProps } from 'react-native';
-
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useThemeColor } from '@/hooks/use-theme-color';
 
 export type ThemedViewProps = ViewProps & {
-  lightColor?: string;
-  darkColor?: string;
+  safeAreaTop?: boolean;
+  safeAreaBottom?: boolean;
+  safeAreaLeft?: boolean;
+  safeAreaRight?: boolean;
 };
 
-export function ThemedView({ style, lightColor, darkColor, ...otherProps }: ThemedViewProps) {
-  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
+export function ThemedView({ 
+  style, 
+  safeAreaTop = false,
+  safeAreaBottom = false,
+  safeAreaLeft = false,
+  safeAreaRight = false,
+  ...otherProps 
+}: ThemedViewProps) {
+  const backgroundColor = useThemeColor({}, 'background');
+  const insets = useSafeAreaInsets();
 
-  return <View style={[{ backgroundColor }, style]} {...otherProps} />;
+  const safeAreaStyle = {
+    paddingTop: safeAreaTop ? insets.top : 0,
+    paddingBottom: safeAreaBottom ? insets.bottom : 0,
+    paddingLeft: safeAreaLeft ? insets.left : 0,
+    paddingRight: safeAreaRight ? insets.right : 0,
+  };
+
+  return <View style={[{ backgroundColor }, safeAreaStyle, style]} {...otherProps} />;
 }

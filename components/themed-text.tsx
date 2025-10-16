@@ -1,6 +1,7 @@
 import { Text as DefaultText, TextProps, TextStyle } from "react-native";
 import { useMemo } from "react";
 import { FontFamilies } from "@/constants/theme";
+import { useThemeColor } from "@/hooks/use-theme-color";
 
 type ThemedTextProps = TextProps & {
   type?: "default" | "defaultSemiBold" | "title" | "subtitle" | "link";
@@ -44,7 +45,13 @@ const getTypeStyle = (type?: ThemedTextProps["type"]): TextStyle => {
   }
 };
 
-export function ThemedText({ type, style, ...otherProps }: ThemedTextProps) {
+export function ThemedText({ 
+  type, 
+  style, 
+  ...otherProps 
+}: ThemedTextProps) {
+  const color = useThemeColor({}, 'text');
+  
   const finalFontFamily = useMemo(() => {
     const typeStyle = getTypeStyle(type);
     const styleArray = Array.isArray(style) ? style : [style];
@@ -69,7 +76,7 @@ export function ThemedText({ type, style, ...otherProps }: ThemedTextProps) {
 
   return (
     <DefaultText
-      style={[getTypeStyle(type), { fontFamily: finalFontFamily }, style]}
+      style={[getTypeStyle(type), { fontFamily: finalFontFamily, color }, style]}
       {...otherProps}
     />
   );

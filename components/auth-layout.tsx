@@ -1,6 +1,7 @@
 import React from "react";
-import { SafeAreaView, View, ScrollView } from "react-native";
+import { View, ScrollView } from "react-native";
 import { Stack } from "expo-router";
+import { ThemedView } from "./themed-view";
 import { authCommonStyles } from "@/styles/auth-styles";
 
 type AuthLayoutProps = {
@@ -10,7 +11,7 @@ type AuthLayoutProps = {
 
 export function AuthLayout({ children, scrollContentStyle }: AuthLayoutProps) {
   return (
-    <SafeAreaView style={authCommonStyles.container}>
+    <ThemedView safeAreaTop safeAreaBottom style={authCommonStyles.container}>
       <Stack.Screen options={{ headerShown: false }} />
       <View style={authCommonStyles.maxWidthContainer}>
         <ScrollView 
@@ -20,7 +21,7 @@ export function AuthLayout({ children, scrollContentStyle }: AuthLayoutProps) {
           {children}
         </ScrollView>
       </View>
-    </SafeAreaView>
+    </ThemedView>
   );
 }
 

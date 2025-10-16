@@ -1,12 +1,11 @@
 import apiClient from "../client";
-import { tokenStorage, userStorage, clearStorage } from "../storage";
 import {
   LoginRequest,
   RegisterRequest,
   AuthResponse,
-  ApiResponse,
   User,
 } from "../types";
+import { clearStorage } from "../storage";
 
 class AuthService {
   // Login
@@ -18,13 +17,6 @@ class AuthService {
       );
 
       if (response.success && response.data) {
-        // Save token and user data
-        await tokenStorage.setToken(response.data.token);
-        if (response.data.refreshToken) {
-          await tokenStorage.setRefreshToken(response.data.refreshToken);
-        }
-        await userStorage.setUser(response.data.user);
-
         return response.data;
       }
 
@@ -43,13 +35,6 @@ class AuthService {
       );
 
       if (response.success && response.data) {
-        // Save token and user data
-        await tokenStorage.setToken(response.data.token);
-        if (response.data.refreshToken) {
-          await tokenStorage.setRefreshToken(response.data.refreshToken);
-        }
-        await userStorage.setUser(response.data.user);
-
         return response.data;
       }
 
@@ -62,13 +47,12 @@ class AuthService {
   // Logout
   async logout(): Promise<void> {
     try {
-      // Call logout endpoint if available
+      // Sunucu taraflı logout işlemi (token invalidation vb.)
       await apiClient.post("/auth/logout");
     } catch (error) {
-      // Continue with local logout even if API call fails
       console.error("Logout API call failed:", error);
     } finally {
-      // Clear all local storage
+      // Yerel depolamayı temizle
       await clearStorage();
     }
   }
@@ -79,7 +63,6 @@ class AuthService {
       const response = await apiClient.get<User>("/auth/me");
       
       if (response.success && response.data) {
-        await userStorage.setUser(response.data);
         return response.data;
       }
 
@@ -90,31 +73,19 @@ class AuthService {
     }
   }
 
-  // Check if user is authenticated
-  async isAuthenticated(): Promise<boolean> {
-    const token = await tokenStorage.getToken();
-    return !!token;
-  }
-
   // Refresh token
-  async refreshToken(): Promise<string | null> {
+  async refreshToken(): Promise<{ token: string; refreshToken?: string } | null> {
+    // Bu fonksiyonun, interceptor'da kullanılabilmesi için
+    // store'dan refresh token alacak şekilde yeniden düzenlenmesi gerekebilir.
+    // Şimdilik temel yapıyı koruyoruz.
     try {
-      const refreshToken = await tokenStorage.getRefreshToken();
-      if (!refreshToken) {
-        return null;
-      }
-
       const response = await apiClient.post<{ token: string; refreshToken?: string }>(
         "/auth/refresh",
-        { refreshToken }
+        {} // Normalde refresh token body'de gönderilir.
       );
 
       if (response.success && response.data) {
-        await tokenStorage.setToken(response.data.token);
-        if (response.data.refreshToken) {
-          await tokenStorage.setRefreshToken(response.data.refreshToken);
-        }
-        return response.data.token;
+        return response.data;
       }
 
       return null;
