@@ -16,7 +16,7 @@ export const SectionHeader = ({ title, showSeeAll = false, onSeeAllPress }: Sect
 
   return (
     <View style={styles.container}>
-      <ThemedText style={styles.title}>{title}</ThemedText>
+      <ThemedText type="sectionHeader" style={styles.title}>{title}</ThemedText>
       
       {showSeeAll && onSeeAllPress && (
         <TouchableOpacity
@@ -45,8 +45,6 @@ const styles = StyleSheet.create({
     minHeight: 76,
   },
   title: {
-    fontSize: FontSizes.lg,
-    fontWeight: FontWeights.semibold,
     letterSpacing: -0.45,
     flex: 1,
   },
@@ -56,9 +54,10 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   seeAllText: {
-    fontSize: FontSizes.md,
     letterSpacing: -0.085,
     lineHeight: 23,
+    fontSize: FontSizes.xl,
+    fontWeight: FontWeights.normal,
   },
 });
 

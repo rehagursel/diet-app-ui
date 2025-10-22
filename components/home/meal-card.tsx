@@ -14,7 +14,6 @@ interface MealCardProps {
 }
 
 export const MealCard = ({ title, subtitle, image, onPress, onAddPress }: MealCardProps) => {
-  const backgroundColor = useThemeColor({}, "cardBackground");
   const subtitleColor = useThemeColor({}, "textSecondary");
   const primaryColor = useThemeColor({}, "primary");
 

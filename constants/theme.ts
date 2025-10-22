@@ -5,7 +5,7 @@
 
 import { Dimensions } from "react-native";
 
-const primary = "#14AE5C";
+const primary = "#0F8647";
 
 export const Colors = {
   light: {

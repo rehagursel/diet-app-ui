@@ -191,7 +191,7 @@ export default function HomeScreen() {
       <HomeHeader
         userName={user?.name ?? "Guest"}
         userEmail={user?.email}
-        profileImage={user?.profileImage}
+        profileImage={user?.profileImage ? `${process.env.EXPO_PUBLIC_IMAGE_BASE_URL}${user.profileImage}` : undefined}
         onNotificationPress={handleNotificationPress}
         onLogout={handleLogout}
       />

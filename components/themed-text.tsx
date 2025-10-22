@@ -4,7 +4,7 @@ import { FontFamilies } from "@/constants/theme";
 import { useThemeColor } from "@/hooks/use-theme-color";
 
 type ThemedTextProps = TextProps & {
-  type?: "default" | "defaultSemiBold" | "title" | "subtitle" | "link";
+  type?: "default" | "defaultSemiBold" | "title" | "subtitle" | "link" | "sectionHeader";
 };
 
 const getFontFamily = (weight?: TextStyle["fontWeight"]): string => {
@@ -36,6 +36,8 @@ const getTypeStyle = (type?: ThemedTextProps["type"]): TextStyle => {
       return { fontSize: 16, fontWeight: "400" };
     case "title":
       return { fontSize: 24, fontWeight: "700" };
+    case "sectionHeader":
+      return { fontSize: 18, fontWeight: "600" };
     case "subtitle":
       return { fontSize: 16, fontWeight: "500" };
     case "link":

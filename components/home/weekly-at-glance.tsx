@@ -37,7 +37,7 @@ export const WeeklyAtGlance = ({ features }: WeeklyAtGlanceProps) => {
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    padding: 18,
+    paddingHorizontal: 18,
   },
   grid: {
     flexDirection: "row",
