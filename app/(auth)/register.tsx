@@ -130,8 +130,7 @@ const RegisterScreen = () => {
         }
       }
 
-      // Success
-      router.replace("/(tabs)");
+      router.replace("/(onboarding)/step1");
     } catch (error) {
       if (error instanceof ApiException) {
         Alert.alert("Registration Failed", getErrorMessage(error));

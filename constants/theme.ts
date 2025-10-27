@@ -11,6 +11,7 @@ export const Colors = {
   light: {
     text: "#11181C",
     textSecondary: "#565656",
+    textDisabled: "#999999",
     textTertiary: "#999999",
     textSubtitle: "#666666",
     background: "#fcfcfc",
@@ -29,6 +30,7 @@ export const Colors = {
   dark: {
     text: "#ECEDEE",
     textSecondary: "#B0B0B0",
+    textDisabled: "#808080",
     textTertiary: "#808080",
     textSubtitle: "#A0A0A0",
     background: "#1a1a1a",

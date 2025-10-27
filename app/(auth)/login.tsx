@@ -40,7 +40,9 @@ const LoginScreen = () => {
       });
 
       dispatch(loginSuccess({ user: result.user, token: result.token }));
-      router.replace("/(tabs)");
+      /* router.replace("/(tabs)"); */
+      router.replace("/(onboarding)/step1");
+
     } catch (error) {
       if (error instanceof ApiException) {
         Alert.alert("Login Failed", getErrorMessage(error));
